@@ -3,6 +3,13 @@ import jakarta.persistence.*
 import java.sql.Time
 
 @Entity
-class Course(@Id private val id: Long, private val name: String, private val cost: Double, private val time: Time) {
+@Table(name = "course")
+data class Course(
+    @Id
+    val id: Long,
+    val name: String,
+    val cost: Double,
+    val time: Time
+) {
 
 }

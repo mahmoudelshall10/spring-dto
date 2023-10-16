@@ -3,12 +3,24 @@ package com.elshall.projectTwo.controller
 import com.elshall.projectTwo.model.Course
 import com.elshall.projectTwo.service.CourseService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.util.*
 
-@RestController()
-@RequestMapping("/course")
+@RestController
+@RequestMapping("/courses")
 class CourseController (private val courseService : CourseService){
 
-    @GetMapping("/all-courses")
+    @GetMapping("/all")
     fun getAllCourses () : List<Course> = courseService.getCourses()
+
+    @GetMapping("/{id}")
+    fun getCourseById (@PathVariable id: Long) : ResponseEntity<Course> {
+        val course = courseService.findCourseId(id)
+        return if(course.isPresent){
+            ResponseEntity.ok(course.get())
+        }else{
+            ResponseEntity.notFound().build()
+        }
+    }
 }
