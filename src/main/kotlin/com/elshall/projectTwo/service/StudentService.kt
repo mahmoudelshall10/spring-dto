@@ -1,5 +1,6 @@
 package com.elshall.projectTwo.service
 
+import com.elshall.projectTwo.dto.StudentDTO
 import com.elshall.projectTwo.model.Student
 import com.elshall.projectTwo.repo.StudentRepo
 import org.springframework.beans.factory.annotation.Autowired
@@ -10,9 +11,24 @@ import java.util.*
 class StudentService() {
     @Autowired
     private lateinit var studentRepo: StudentRepo
-    fun getStudents() : List<Student>{
-        return studentRepo.findAll()
+    fun getStudents() : List<StudentDTO>{
+        /* get all students from student repo*/
+        val students: List<Student> = studentRepo.findAll()
+        /* init student dto*/
+        val studentDTOs: MutableList<StudentDTO> = mutableListOf()
+        for (student in students) {
+            /* init single studentDTO  and pass repo into dto */
+            val studentDTO = StudentDTO(
+                id = student.id,
+                name = student.name,
+            )
+            /* add dto to dtos */
+            studentDTOs.add(studentDTO)
+        }
+        return studentDTOs
     }
+
+
 
     fun findStudentId(id: Long): Optional<Student> = studentRepo.findById(id)
 }
