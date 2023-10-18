@@ -1,6 +1,7 @@
 package com.elshall.projectTwo.service
 
 import com.elshall.projectTwo.dto.StudentDTO
+import com.elshall.projectTwo.dto.StudentNameDTO
 import com.elshall.projectTwo.model.Student
 import com.elshall.projectTwo.repo.StudentRepo
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,5 +31,11 @@ class StudentService() {
 
 
 
-    fun findStudentId(id: Long): Optional<Student> = studentRepo.findById(id)
+//    fun findStudentId(id: Long): Optional<Student> = studentRepo.findById(id)
+    fun findStudentId(id: Long): Student  = studentRepo.findById(id).get()
+    fun findStudentIdByName (id: Long) : StudentNameDTO {
+        val student : Student = studentRepo.findById(id).get()
+        val snd  = StudentNameDTO(name = student.name)
+        return snd
+    }
 }

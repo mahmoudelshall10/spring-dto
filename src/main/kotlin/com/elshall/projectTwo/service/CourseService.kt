@@ -25,7 +25,8 @@ class CourseService (){
   }
 
 
-    fun findCourseId(id: Long): Optional<Course> = courseRepo.findById(id)
+//    fun findCourseId(id: Long): Optional<Course> = courseRepo.findById(id)
+    fun findCourseId(id: Long): Course = courseRepo.findById(id).get()
 
 }
 

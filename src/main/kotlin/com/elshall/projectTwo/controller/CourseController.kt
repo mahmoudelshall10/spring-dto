@@ -15,13 +15,16 @@ class CourseController (private val courseService : CourseService){
     @GetMapping("/all")
     fun getAllCourses () : List<CourseDTO> = courseService.getCourses()
 
+//    @GetMapping("/{id}")
+//    fun getCourseById (@PathVariable id: Long) : ResponseEntity<Course> {
+//        val course = courseService.findCourseId(id)
+//        return if(course.isPresent){
+//            ResponseEntity.ok(course.get())
+//        }else{
+//            ResponseEntity.notFound().build()
+//        }
+//    }
+
     @GetMapping("/{id}")
-    fun getCourseById (@PathVariable id: Long) : ResponseEntity<Course> {
-        val course = courseService.findCourseId(id)
-        return if(course.isPresent){
-            ResponseEntity.ok(course.get())
-        }else{
-            ResponseEntity.notFound().build()
-        }
-    }
+    fun getCourseById (@PathVariable id: Long) : Course = courseService.findCourseId(id)
 }
